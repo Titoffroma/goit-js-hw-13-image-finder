@@ -10,15 +10,6 @@ delete defaults.stack;
 
 import galleryCardRender from '../templates/GalleryCard.hbs';
 
-import * as basicLightbox from 'basiclightbox';
-function openImage({ src, alt }) {
-  const instance = basicLightbox.create(`
-	<img class="photo-card__image"
-            src="${src}" alt="${alt}" />
-`);
-  instance.show();
-}
-
 export default class {
   constructor(key, { formRef, galleryRef, nextBtnRef }) {
     this.APIURL = 'https://pixabay.com/api/';
@@ -41,7 +32,6 @@ export default class {
   }
   startImagefinder() {
     this.formRef.addEventListener('submit', this.getResult);
-    this.galleryRef.addEventListener('click', this.openLightBox);
   }
   getResult(event) {
     event.preventDefault();
@@ -108,7 +98,7 @@ export default class {
     this.appendResult().then(() => {
       if (width < 700)
         window.scrollTo({ top: -y + screenHeight - 170, behavior: 'smooth' });
-      if (width < 1170)
+      else if (width < 1170)
         window.scrollTo({ top: -y + screenHeight - 160, behavior: 'smooth' });
       else
         window.scrollTo({ top: -y + screenHeight - 180, behavior: 'smooth' });
@@ -118,10 +108,6 @@ export default class {
     this.nextBtnRef.addEventListener('click', this.addResult, {
       once: true,
     });
-  }
-  openLightBox(event) {
-    const set = { src: event.target.dataset.src, alt: event.target.alt };
-    openImage(set);
   }
   animateAwait() {
     this.galleryRef.classList.toggle('animated');

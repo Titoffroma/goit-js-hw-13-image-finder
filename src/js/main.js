@@ -9,5 +9,21 @@ const refs = {
   nextBtnRef: document.querySelector('.button-next'),
 };
 
+import * as basicLightbox from 'basiclightbox';
+
 const myImagefinder = new SmartImagefinder(key, refs);
 myImagefinder.startImagefinder();
+
+refs.galleryRef.addEventListener('click', openLightBox);
+
+function openLightBox(event) {
+  const set = { src: event.target.dataset.src, alt: event.target.alt };
+  openImage(set);
+}
+function openImage({ src, alt }) {
+  const instance = basicLightbox.create(`
+	<img class="photo-card__image"
+            src="${src}" alt="${alt}" />
+`);
+  instance.show();
+}

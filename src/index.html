@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Country Info</title>
+  </head>
+  <body>
+    <section class="container">
+      <article class="search-article">
+        <h1 class="search-form__header">Find pictures</h1>
+        <form class="search-form" id="search-form">
+          <input
+            class="search-form__input"
+            type="text"
+            name="query"
+            autocomplete="off"
+            placeholder="Search images..."
+          />
+          <button type="submit" class="button">
+            <i class="material-icons">search</i>Search
+          </button>
+        </form>
+        <div class="search-form__output result"></div>
+      </article>
+      <ul class="gallery"></ul>
+      <div class="button-container">
+        <button type="button" class="button button-next visually-hidden">
+          Load more
+        </button>
+      </div>
+    </section>
+  </body>
+</html>

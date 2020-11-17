@@ -1,0 +1,58 @@
+@keyframes fadein {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  20% {
+    transform: translateY(10px);
+    opacity: 0.5;
+  }
+  40% {
+    color: #ccc;
+    opacity: 0.9;
+    transform: translateY(0px);
+  }
+  60% {
+    color: #fff;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.error {
+  position: fixed;
+  z-index: 10000;
+  animation: fadein 3s ease 1 forwards;
+  width: 100%;
+  top: 0;
+  opacity: 0.9;
+  padding: 10px 40px;
+  color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .pnotify-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: palevioletred;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  .material-icon-error:after {
+    content: 'error';
+    color: red;
+    font-family: Material Icons;
+    height: 20px;
+    width: 20px;
+    font-size: 20px;
+    margin-right: 5px;
+    line-height: 24px;
+    position: relative;
+  }
+}

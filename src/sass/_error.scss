@@ -4,13 +4,13 @@
     transform: translateY(-100px);
   }
   20% {
-    transform: translateY(10px);
+    transform: translateY(40px);
     opacity: 0.5;
   }
   40% {
     color: #ccc;
     opacity: 0.9;
-    transform: translateY(0px);
+    transform: translateY(20px);
   }
   60% {
     color: #fff;
@@ -20,39 +20,23 @@
   }
   100% {
     opacity: 0;
+    transform: translateY(40px);
   }
 }
 
 .error {
-  position: fixed;
-  z-index: 10000;
   animation: fadein 3s ease 1 forwards;
-  width: 100%;
+}
+body > .pnotify.pnotify-positioned.error {
   top: 0;
-  opacity: 0.9;
-  padding: 10px 40px;
-  color: #ccc;
+  right: 0;
+  left: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-
-  .pnotify-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: palevioletred;
-    padding: 10px;
-    border-radius: 8px;
-  }
-  .material-icon-error:after {
-    content: 'error';
+  z-index: 0;
+  & .material-container {
+    border-radius: 0 0 8px 8px;
+    padding-top: 80px;
     color: red;
-    font-family: Material Icons;
-    height: 20px;
-    width: 20px;
-    font-size: 20px;
-    margin-right: 5px;
-    line-height: 24px;
-    position: relative;
   }
 }

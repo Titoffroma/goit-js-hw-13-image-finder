@@ -30,5 +30,12 @@
         </button>
       </div>
     </section>
+    <script>
+      async function showImageOnload(src) {
+        const imgtoLoad = document.querySelector(`img[data-id="${src}"]`);
+        imgtoLoad.classList.remove('hidden');
+        imgtoLoad.dataset.id += '_';
+      }
+    </script>
   </body>
 </html>

@@ -1,8 +1,8 @@
 {{#each this}}
 <li class="photo-card">
-    <picture class="photo-card__picture"><img class="photo-card__image"
+    <picture class="photo-card__picture"><img class="photo-card__image hidden" onload="showImageOnload({{id}})"
             srcset="{{previewURL}} {{previewWidth}}w, {{webformatURL}} {{webformatWidth}}w" sizes="{{previewWidth}}"
-            alt="{{tags}}" data-src="{{largeImageURL}}" />
+            src="{{webformatURL}}" alt="{{tags}}" data-src="{{largeImageURL}}" data-id="{{id}}" />
     </picture>
     <div class="photo-card__stats-container">
         <div class="photo-card__stats">

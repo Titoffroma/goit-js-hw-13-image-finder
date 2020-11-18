@@ -97,7 +97,7 @@ export default class {
     const screenHeight = document.documentElement.clientHeight;
     this.appendResult().then(() => {
       if (width < 700)
-        window.scrollTo({ top: -y + screenHeight - 170, behavior: 'smooth' });
+        window.scrollTo({ top: -y + screenHeight - 198, behavior: 'smooth' });
       else if (width < 1170)
         window.scrollTo({ top: -y + screenHeight - 160, behavior: 'smooth' });
       else

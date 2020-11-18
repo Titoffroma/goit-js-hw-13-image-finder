@@ -17,6 +17,12 @@
   position: relative;
   transition: box-shadow $transition, transform $transition;
   height: 170px;
+
+  background-image: url(../img/logo_square.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+
   @media screen and (min-width: 768px) {
     height: 160px;
   }
@@ -42,7 +48,12 @@
 
     object-position: center center;
     object-fit: cover;
-    transition: object-position $transition;
+    transition: object-position $transition, opacity 1s ease-in-out,
+      height 250ms ease-in-out;
+    &.hidden {
+      opacity: 0;
+      height: 0px;
+    }
   }
   &__stats-container {
     position: absolute;

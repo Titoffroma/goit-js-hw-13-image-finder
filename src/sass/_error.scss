@@ -3,14 +3,16 @@
     opacity: 0;
     transform: translateY(-100px);
   }
-  20% {
+  25% {
     transform: translateY(40px);
     opacity: 0.5;
+  }
+  30% {
+    transform: translateY(30px);
   }
   40% {
     color: #ccc;
     opacity: 0.9;
-    transform: translateY(20px);
   }
   60% {
     color: #fff;
@@ -20,14 +22,15 @@
   }
   100% {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(30px);
   }
 }
 
 .error {
-  animation: fadein 3s ease 1 forwards;
+  animation: fadein 5s ease 1 forwards;
 }
 body > .pnotify.pnotify-positioned.error {
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
@@ -36,7 +39,10 @@ body > .pnotify.pnotify-positioned.error {
   z-index: 0;
   & .material-container {
     border-radius: 0 0 8px 8px;
-    padding-top: 80px;
+    padding-top: 100px;
+    @media screen and (min-width: 768px) {
+      padding-top: 40px;
+    }
     color: rgb(83, 6, 6);
   }
 }

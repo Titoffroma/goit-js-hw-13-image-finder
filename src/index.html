@@ -21,7 +21,15 @@
             <i class="material-icons">search</i>Search
           </button>
         </form>
-        <div class="search-form__output result"></div>
+        <div class="search-form__perpage">
+          <span>Results to show:</span>
+          <input
+            class="search-form__perpage-input search-form__input"
+            id="perpage"
+            type="number"
+            value="12"
+          />
+        </div>
       </article>
       <ul class="gallery"></ul>
       <div class="button-container">
@@ -31,10 +39,12 @@
       </div>
     </section>
     <script>
-      async function showImageOnload(src) {
-        const imgtoLoad = document.querySelector(`img[data-id="${src}"]`);
-        imgtoLoad.classList.remove('hidden');
-        imgtoLoad.dataset.id += '_';
+      async function showImageOnload(id) {
+        const imgtoLoad = document.querySelector(`img[data-id="${id}"]`);
+        if (imgtoLoad) {
+          imgtoLoad.classList.remove('hidden');
+          imgtoLoad.dataset.id += '_';
+        }
       }
     </script>
   </body>

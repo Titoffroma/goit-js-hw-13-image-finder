@@ -11,8 +11,9 @@ delete defaults.stack;
 import galleryCardRender from '../templates/GalleryCard.hbs';
 
 export default class {
-  constructor(key, { formRef, galleryRef, nextBtnRef }) {
+  constructor(key, { perPage, formRef, galleryRef, nextBtnRef }) {
     this.APIURL = 'https://pixabay.com/api/';
+    this._perPage = perPage;
     this.count = 1;
     this.searchQuery = '';
     this.key = key;
@@ -22,12 +23,20 @@ export default class {
     this.getResult = this.getResult.bind(this);
     this.addResult = this.addResult.bind(this);
   }
+  get perPage() {
+    return this._perPage;
+  }
+  set perPage(perPage) {
+    this._perPage = perPage;
+  }
   get searchURL() {
     return (
       this.APIURL +
       '?key=' +
       this.key +
-      '&image_type=photo&orientation=horizontal&per_page=12&q='
+      '&image_type=photo&orientation=horizontal&per_page=' +
+      this.perPage +
+      '&q='
     );
   }
   startImagefinder() {
@@ -62,15 +71,19 @@ export default class {
   }
   async fetchResult(data) {
     try {
-      return fetch(this.searchURL + data + '&page=' + this.count, {
-        headers: {
-          Accept: 'application/json',
+      return await fetch(this.searchURL + data + '&page=' + this.count).then(
+        response => {
+          if (response.ok) {
+            this.count += 1;
+            return response.json();
+          }
+          const responseResolved = false;
+          return responseResolved;
         },
-      }).then(response => {
-        this.count += 1;
-        return response.json();
-      });
+      );
     } catch (err) {
+      if (err == 'TypeError: Failed to fetch')
+        err = 'No more matches. Try new search';
       this.pushError(err);
     }
   }
@@ -78,31 +91,32 @@ export default class {
     this.animateAwait();
     this.nextBtnRef.classList.add('visually-hidden');
     const markup = await this.fetchResult(this.searchQuery);
+    if (!markup) return this.animateAwait();
     if (markup.hits.length === 0) {
       this.animateAwait();
       return this.pushError('no matches found');
     }
-    if (markup.hits.length === 12) {
-      this.galleryRef.insertAdjacentHTML(
-        'beforeend',
-        galleryCardRender(markup.hits),
-      );
+    if (markup.hits.length <= this.perPage) {
+      const imagelist = this.handleBarsIt(markup.hits);
+      this.galleryRef.insertAdjacentHTML('beforeend', imagelist);
       this.enableListener();
       this.nextBtnRef.classList.remove('visually-hidden');
     }
     this.animateAwait();
   }
-  addResult() {
+  handleBarsIt(data) {
+    const imageList = galleryCardRender(data);
+    return imageList;
+  }
+  async addResult() {
     const { y, width } = this.galleryRef.getBoundingClientRect();
     const screenHeight = document.documentElement.clientHeight;
-    this.appendResult().then(() => {
-      if (width < 700)
-        window.scrollTo({ top: -y + screenHeight - 198, behavior: 'smooth' });
-      else if (width < 1170)
-        window.scrollTo({ top: -y + screenHeight - 160, behavior: 'smooth' });
-      else
-        window.scrollTo({ top: -y + screenHeight - 180, behavior: 'smooth' });
-    });
+    await this.appendResult();
+    if (width < 700)
+      window.scrollTo({ top: -y + screenHeight - 198, behavior: 'smooth' });
+    else if (width < 1170)
+      window.scrollTo({ top: -y + screenHeight - 160, behavior: 'smooth' });
+    else window.scrollTo({ top: -y + screenHeight - 180, behavior: 'smooth' });
   }
   enableListener() {
     this.nextBtnRef.addEventListener('click', this.addResult, {

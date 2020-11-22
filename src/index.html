@@ -27,6 +27,8 @@
             class="search-form__perpage-input search-form__input"
             id="perpage"
             type="number"
+            min="3"
+            max="200"
             value="12"
           />
         </div>
@@ -44,6 +46,8 @@
         if (imgtoLoad) {
           imgtoLoad.classList.remove('hidden');
           imgtoLoad.dataset.id += '_';
+          imgtoLoad.closest('.photo-card').style.backgroundPosition =
+            '50% -100%';
         }
       }
     </script>

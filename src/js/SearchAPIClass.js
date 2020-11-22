@@ -64,28 +64,25 @@ export default class {
       type: 'error',
       addClass: 'error animate',
     });
+    return err;
   }
   removeError() {
     const errorRef = document.querySelector('.error');
     if (errorRef) errorRef.remove();
   }
   async fetchResult(data) {
-    try {
-      return await fetch(this.searchURL + data + '&page=' + this.count).then(
-        response => {
-          if (response.ok) {
-            this.count += 1;
-            return response.json();
-          }
-          const responseResolved = false;
-          return responseResolved;
-        },
-      );
-    } catch (err) {
-      if (err == 'TypeError: Failed to fetch')
-        err = 'No more matches. Try new search';
-      this.pushError(err);
+    const response = await fetch(
+      this.searchURL + data + '&page=' + this.count,
+    ).catch(err => {
+      if (this.count > 1)
+        return this.pushError('No more matches. Try new search');
+      return this.pushError(err.message);
+    });
+    if (response.ok) {
+      this.count += 1;
+      return await response.json();
     }
+    return false;
   }
   async appendResult() {
     this.animateAwait();

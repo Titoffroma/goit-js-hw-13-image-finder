@@ -1,8 +1,9 @@
 {{#each this}}
 <li class="photo-card">
     <picture class="photo-card__picture"><img class="photo-card__image hidden" onload="showImageOnload({{id}})"
-            srcset="{{previewURL}} {{previewWidth}}w, {{webformatURL}} {{webformatWidth}}w" sizes="{{previewWidth}}"
-            src="{{webformatURL}}" alt="{{tags}}" data-src="{{largeImageURL}}" data-id="{{id}}" />
+            srcset="{{previewURL}} {{previewWidth}}w, {{webformatURL}} {{webformatWidth}}w"
+            sizes="(min-width: 1280px) 33vw,(min-width: 768px) 50vw, 100vw" src="{{webformatURL}}" alt="{{tags}}"
+            data-src="{{largeImageURL}}" data-id="{{id}}" />
     </picture>
     <div class="photo-card__stats-container">
         <div class="photo-card__stats">

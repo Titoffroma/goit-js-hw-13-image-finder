@@ -8,7 +8,10 @@
   list-style-type: none;
   width: 100%;
   margin: 0 auto;
-  padding-top: 30px;
+  padding-top: 100px;
+  @media screen and (min-width: 768px) {
+    padding-top: 30px;
+  }
   pointer-events: none;
   @include Cardset-Responsive-1280-768-480(480px, 15px, 15px, 1);
   @include Cardset-Responsive-1280-768-480(768px, 20px, 20px, 2);
@@ -16,24 +19,27 @@
 }
 .photo-card {
   position: relative;
-  transition: box-shadow $transition, transform $transition;
-  height: 170px;
+  transition: box-shadow $transition, transform $transition,
+    background-position $transition;
+  overflow: hidden;
+  height: calc(((100vw - 30px) / 3) * 1.6);
+  @media screen and (min-width: 768px), screen and (orientation: landscape) {
+    height: calc(((100vw - 60px) / 6) * 1.6);
+  }
+  @media screen and (min-width: 1280px) {
+    height: calc(((100vw - 120px) / 9) * 1.6);
+  }
 
   background-image: url(../img/logo_square.svg);
+  background-color: rgb(214, 232, 255);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
+  background-size: auto 50%;
 
-  @media screen and (min-width: 768px) {
-    height: 160px;
-  }
-  @media screen and (min-width: 1280px) {
-    height: 180px;
-  }
   &:hover {
     box-shadow: 1px 1px 4px rgba(14, 6, 6, 0.9);
     transform: scale(1.01);
-    z-index: 10;
     & .photo-card__stats {
       transform: translateY(0);
       opacity: 1;
@@ -44,17 +50,15 @@
   }
   &__image {
     display: block;
-    width: 100%;
-    height: 100%;
     pointer-events: auto;
-
+    width: 100%;
     object-position: center center;
-    object-fit: cover;
+    object-fit: none;
     transition: object-position $transition, opacity 1500ms ease-in-out,
-      height 250ms ease-in-out 500ms;
+      transform 250ms ease-in-out 500ms;
     &.hidden {
       opacity: 0;
-      height: 0px;
+      transform: translateY(-100%);
     }
   }
   &__stats-container {
@@ -62,7 +66,7 @@
     top: 0;
     overflow: hidden;
     height: 30px;
-    width: 100%;
+    width: 240px;
   }
   &__stats {
     display: flex;
@@ -76,13 +80,44 @@
     transform: translateY(-100%);
     transition: opacity $transition, transform $transition 150ms;
     background: rgba(29, 24, 24, 0.5);
+    border-bottom-right-radius: 10px;
   }
   &__item {
     color: #fff;
     font-size: 8px;
   }
   &:hover {
-    overflow: visible;
     color: rgba(78, 67, 182, 0.6);
+  }
+}
+
+.full-image-container {
+  width: 80vw;
+  position: relative;
+  & img {
+    width: 100%;
+    max-height: 95vh;
+    object-fit: cover;
+  }
+}
+.download {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  color: #717171;
+  transition: background $transition, color $transition;
+  &:hover {
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+  }
+  & .material-icons {
+    margin-right: 0px;
   }
 }
